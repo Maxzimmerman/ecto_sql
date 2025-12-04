@@ -473,7 +473,8 @@ defmodule Ecto.Migration.Runner do
       "rename column #{current_column} to #{new_column} on table #{quote_name(table.prefix, table.name)}"
 
   defp command({:alter_pk, %Table{} = table, current_pk, new_pk}),
-    do: ""
+    do:
+      "alter primary key from #{current_pk} to #{new_pk} on table #{quote_name(table.prefix, table.name)}"
 
   defp command({:create, %Constraint{check: nil, exclude: nil}}),
     do: raise(ArgumentError, "a constraint must have either a check or exclude option")
