@@ -1301,6 +1301,20 @@ defmodule Ecto.Migration do
   end
 
   @doc """
+  Alter pk column
+
+  Changes the pk from the selected to a desired column executing all steps necessary to keep data integrity.
+
+  ## Examples
+
+      alter_pk table("posts"), :id, to: title
+  """
+  def alter_pk(%Table{} = table, current_pk, to: new_pk) when is_atom(current_pk) and is_atom(new_pk) do
+    Runner.execute({:alter_pk, __prefix__(table), current_pk, new_pk})
+    table
+  end
+
+  @doc """
   Generates a fragment to be used as a default value.
 
   ## Examples
