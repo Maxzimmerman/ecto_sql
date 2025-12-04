@@ -1309,8 +1309,8 @@ defmodule Ecto.Migration do
 
       alter_pk table("posts"), :id, to: title
   """
-  def alter_pk(%Table{} = table, current_pk, current_pk_contraint, to: new_pk) when is_atom(current_pk) and is_atom(new_pk) do
-    Runner.execute({:alter_pk, __prefix__(table), current_pk, current_pk_contraint, new_pk})
+  def alter_pk(%Table{} = table, current_pk, to: new_pk) when is_atom(current_pk) and is_atom(new_pk) do
+    Runner.execute({:alter_pk, __prefix__(table), current_pk, new_pk})
     table
   end
 
