@@ -548,6 +548,14 @@ defmodule Ecto.MigrationTest do
       end
     end
 
+    test "alter pk" do
+      result = alter_pk(table(:posts), :given_name, to: :first_name)
+      flush()
+
+      assert last_command() == {:alter_pk, %Table{name: "posts"}, :given_name, :first_name}
+      assert result == table(:posts)
+    end
+
     test "rename column" do
       result = rename(table(:posts), :given_name, to: :first_name)
       flush()
