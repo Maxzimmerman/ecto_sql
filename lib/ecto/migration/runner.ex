@@ -252,6 +252,9 @@ defmodule Ecto.Migration.Runner do
   defp reverse({:rename, %Table{} = table, current_column, new_column}),
     do: {:rename, table, new_column, current_column}
 
+  defp reverse({:alter_pk, %Table{} = table, current_pk, new_pk}),
+    do: {:alter_pk, table, new_pk, current_pk}
+
   defp reverse({:alter, %Table{} = table, changes}) do
     if reversed = table_reverse(changes, []) do
       {:alter, table, reversed}

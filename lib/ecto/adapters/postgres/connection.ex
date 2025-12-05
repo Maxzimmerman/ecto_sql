@@ -1396,15 +1396,12 @@ if Code.ensure_loaded?(Postgrex) do
       ]
     end
 
-    def execute_ddl({:alter_pk, %Table{} = table, current_pk, new_pk}) do
+    def execute_ddl({:alter_pk, %Table{} = table, _current_pk, new_pk}) do
       table_name = quote_name(table.prefix, table.name)
 
       [
         ["ALTER TABLE ", table_name, " DROP CONSTRAINT IF EXISTS ",
         quote_name("#{table.name}_pkey")],
-
-        ["ALTER TABLE ", table_name, " DROP COLUMN IF EXISTS ",
-        "#{current_pk}"],
 
         ["ALTER TABLE ", table_name, " ADD PRIMARY KEY (",
         quote_name(new_pk), ")"]
